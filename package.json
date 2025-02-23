@@ -1,0 +1,23 @@
+{
+  "name": "ytvinstallconverter",
+  "version": "1.0.0",
+  "description": "Um programa feito para facilitar o Download e conversão de videos do Youtuber.",
+  "main": "index.js",
+  "scripts": {
+    "test": "run"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Iruburu/ytvinstallConverter.git"
+  },
+  "author": "Iruburu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Iruburu/ytvinstallConverter/issues"
+  },
+  "homepage": "https://github.com/Iruburu/ytvinstallConverter#readme",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
