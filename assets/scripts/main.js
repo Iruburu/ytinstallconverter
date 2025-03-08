@@ -3,6 +3,8 @@ const formUrl = document.getElementById('form_url')
 
 const buttonFetch = document.getElementById('fetch_List_URLs')
 
+const HTMLListURLs = document.getElementById('list_urls')
+
 // Uma lista onde será guardado as URLs selecionadas
 const listURLs = []
 
@@ -63,6 +65,8 @@ formUrl.addEventListener("submit", function (event) {
 
     // Adiciona a URl á lista
     listURLs.push(url)
+
+    drawListURLs(listURLs)
     console.log(listURLs)
 })
 
@@ -94,3 +98,38 @@ async function fetchData(url, data, method = 'POST') {
 buttonFetch.addEventListener('click', function(event) {
     fetchData("http://localhost:1313/api/", listURLs)
 })
+
+
+function drawListURLs(urls) {
+    
+    const newURL = function (url) {
+
+        let li = document.createElement('li')
+        let divNumber = document.createElement("span")
+        let divURL = document.createElement("span")
+        let divType = document.createElement("span")
+
+        divNumber.textContent = url.number
+        divURL.textContent = url.URL
+        divType.textContent = url.method
+
+        li.appendChild(divNumber)
+        li.appendChild(divURL)
+        li.appendChild(divType)
+
+        return li
+    }
+
+    HTMLListURLs.innerHTML = ''
+    
+    urls.forEach(function (url) {
+        
+        HTMLListURLs.appendChild(
+            newURL(url)
+            
+        )
+        console.log(url)
+        
+    });
+
+}

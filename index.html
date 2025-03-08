@@ -1,82 +1,151 @@
 <!DOCTYPE html>
-<html lang="pt-br>
-<head>
-    <meta charset=" UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-meta
+    <title>Youtube Video Install Converter</title>
 
-<title>Youtube Video Install Converter</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
-    rel="stylesheet">
+    <link rel="stylesheet" href="assets/style/main.css" />
+  </head>
 
-<link rel="stylesheet" href="assets/style/main.css">
-
-</head>
-
-<body class="body">
+  <body id="body">
     <header class="header">
-        <hgroup class="hgroup">
-            <div class="content">
-                <h1 class="title">Baixador de vídeos do YouTube</h1>
-                <span class="text">Baixe qualquer vídeo do YouTube e os convertas automaticamente para o tipo que você
-                    quiser!</span>
-                <div>
-                    <button class="button">Ir Para Ferramenta</button>
-                </div>
-                <div>
-                    <span class="warnings">Ao baixar vídeos do YouTube, você concorda <a href="">Diretrizes de
-                            Uso</a>.</span>
-                </div>
-            </div>
-        </hgroup>
-    </header>
-    <br>
-    <section class="section-help">
-        <div class="help">
-            <h2 class="title">Como Baixar vídeos do YouTube?</h2>
-            <br>
-            <div class="grid">
-                <div class="view-help">
-                    <img src="assets/images/flowers.webp" alt="" title="Uma linda Flor.">
-                </div>
-                <div>
-                    <div>
-                        <p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus quae commodi
-                            veniam
-                            veritatis nostrum error possimus dolorem quia magni quas consequuntur, assumenda a adipisci
-                            tempore praesentium asperiores? Modi, dicta beatae!</p>
-                    </div>
-                </div>
-            </div>
+      <hgroup class="hgroup">
+        <div class="content">
+          <h1 class="title">Baixador de vídeos do YouTube</h1>
+          <span class="text"
+            >Baixe qualquer vídeo do YouTube e os convertas automaticamente para
+            o tipo que você quiser!</span
+          >
+          <div>
+            <button class="button">Ir Para Ferramenta</button>
+          </div>
+          <div>
+            <span class="warnings"
+              >Ao baixar vídeos do YouTube, você concorda
+              <a href="">Diretrizes de Uso</a>.</span
+            >
+          </div>
         </div>
-    </section>
-    <section>
-        <form id="form_url">
-            <div>
-                <label for="input_url">Url</label>
-                <input type="text" name="" id="input_url">
-            </div>
-            <div>
-                <select name="" id="method_selected">
-                    <optgroup label="Audio">
-                        <option value="mp3">MP3</option>
-                    </optgroup>
-                    <optgroup label="Video">
-                        <option value="mp4" selected>MP4</option>
-                    </optgroup>
-                </select>
-            </div>
-            <div>
-                <input type="submit" value="Adicionar">
-            </div>
-        </form>
+      </hgroup>
+    </header>
+    <br />
+    <section class="section-help help">
+      <h2 class="title">Como Baixar vídeos do YouTube?</h2>
+      <br />
+      <div class="grid">
+        <div class="view-help">
+          <img
+            src="assets/images/flowers.webp"
+            alt=""
+            title="Uma linda Flor."
+          />
+        </div>
+        <div>
+          <div>
+            <p class="text">
+              Para baixar um vídeo no formato desejado, copie o link do vídeo,
+              cole no formulário e clique em "Adicionar". Depois de escolher os
+              vídeos que quer baixar, selecione a extensão desejada, vídeo como
+              MP4, AVI ou MKV ou audio, como MP3, WAV ou AAC. Se precisar
+              adicionar mais vídeos, basta repetir o processo. Quando tudo
+              estiver pronto, clique em "Baixar" para iniciar o download. Assim,
+              você pode baixar seus vídeos favoritos no formato que preferir de
+              forma simples e rápida.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="help"> -->
+      <!-- </div> -->
     </section>
 
-     <script src="assets/scripts/main.js"></script>
-</body>
+    <section class="sec-tool">
+      <h2 class="title">Ferramenta</h2>
+      <p class="text">Com apenas alguns cliques, você baixa suas músicas de forma rápida e fácil. Basta colar o link, escolher a extensão e clicar em "Adicionar", depois "Baixar"!</p>
+      <form class="tool" id="form_url">
+        <div class="div-input">
+          <label for="input_url" class="icon"></label>
+          <input type="text" name="" id="input_url" />
+        </div>
+        <div>
+          <select name="" class="metohds" id="method_selected">
+            <optgroup label="Audio">
+              <option value="mp3">MP3</option>
+            </optgroup>
+            <optgroup label="Video">
+              <option value="mp4" selected>MP4</option>
+            </optgroup>
+          </select>
+        </div>
+        <button type="submit" class="add"></button>
+        <!-- <div class="add">
+        </div> -->
+      </form>
+    </section>
 
+    <section class="url-table" translate="no">
+      <div class="table-header">
+        <div class="div-background">
+          <div class="grid">
+            <span class="index">Index</span>
+            <span class="url">Url</span>
+            <span class="type">Tipo</span>
+            <span class="remove"></span>
+          </div>
+        </div>
+      </div>
+      <table class="list" aria-hidden="true">
+        <tbody class="body">
+          <tr class="url grid">
+            <td class="index">0</td>
+            <td class="url">
+              https://youtu.be/-KMjLWQFDIE?si=aopR22ZDqbvpBix4
+            </td>
+            <td>MP3</td>
+            <td class="Bu-remove"></td>
+          </tr>
+          <tr class="url grid">
+            <td class="index">0</td>
+            <td class="url">
+              https://youtu.be/-KMjLWQFDIE?si=aopR22ZDqbvpBix4
+            </td>
+            <td>MP3</td>
+            <td class="Bu-remove"></td>
+          </tr>
+          <tr class="url grid">
+            <td class="index">0</td>
+            <td class="url">
+              https://youtu.be/-KMjLWQFDIE?si=aopR22ZDqbvpBix4
+            </td>
+            <td>MP3</td>
+            <td class="Bu-remove"></td>
+          </tr>
+          <tr class="url grid">
+            <td class="index">0</td>
+            <td class="url">
+              https://youtu.be/-KMjLWQFDIE?si=aopR22ZDqbvpBix4
+            </td>
+            <td>MP3</td>
+            <td class="Bu-remove"></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <script src="assets/scripts/main.js"></script>
+    <script>
+      //     setTimeout(function () {
+      //   location.reload();
+      // }, 1000);
+    </script>
+  </body>
 </html>

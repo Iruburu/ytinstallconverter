@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        font-family: "Roboto", serif;
+      }
+
+      .url-table {
+        width: 90vw;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      .url-table .table-header {
+        background-color: #7251b5;
+        padding: 10px 12px;
+        font-size: 1.2em;
+        border-radius: 17px;
+      }
+
+      .url-table .table-header .grid,
+      .url-table .list .body tr {
+        display: grid;
+        grid-template-columns: 70px calc(100% - 190px - 6px) 70px 50px;
+        gap: 2px;
+      }
+
+      .url-table .table-header .div-background {
+        background-color: rgba(255, 255, 255, 0.288);
+      }
+
+      .url-table .table-header .grid span {
+        background-color: #7251b5;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: rgb(252, 238, 255);
+        text-align: center;
+      }
+
+      .url-table .list {
+        width: 100%;
+        padding: 8px 10px;
+        text-align: center;
+        font-size: 1.1em;
+      }
+
+      .url-table .list .index {
+        font-weight: 600;
+      }
+
+      .url-table .list .url {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        
+      }
+
+      .url-table .list .body {
+        display: flex;
+        gap: 2px;
+        flex-direction: column;
+        background-color: rgba(137, 43, 226, 0.199);
+      }
+
+      .url-table .list .body tr td {
+        background-color: #ffffff;
+        padding: 5px 5px;
+        color: #422e69;
+      }
+
+      .url-table .list .Bu-remove {
+        display: block;
+        position: relative;
+        cursor: pointer;
+      }
+
+      .url-table .list .Bu-remove::before {
+        content: '';
+        position: absolute;        
+        top: 50%;
+        left: 50%;
+        width: 75%;
+        height: 75%;
+        transform: translate(-50%, -50%);
+        background-image: url('assets/icon/xmark-solid.svg');
+        background-position: center center;
+        background-repeat: no-repeat;
+        transition: 0.1s;
+    }
+    .url-table .list .Bu-remove:hover::before {
+        background-color: #7251b51c;
+        width: 80%;
+        height: 80%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="url-table" translate="no">
+      <div class="table-header">
+        <div class="div-background">
+          <div class="grid">
+            <span class="index">Index</span>
+            <span class="url">Url</span>
+            <span class="type">Tipo</span>
+            <span class="remove"></span>
+          </div>
+        </div>
+      </div>
+      <table class="list" aria-hidden="true">
+        <tbody class="body">
+          <tr class="url grid">
+            <td class="index">0</td>
+            <td class="url">
+              https://youtu.be/-KMjLWQFDIE?si=aopR22ZDqbvpBix4
+            </td>
+            <td>MP3</td>
+            <td class="Bu-remove"></td>
+          </tr>
+          <tr class="url grid">
+            <td class="index">0</td>
+            <td class="url">
+              https://youtu.be/-KMjLWQFDIE?si=aopR22ZDqbvpBix4
+            </td>
+            <td>MP3</td>
+            <td class="Bu-remove"></td>
+          </tr>
+          <tr class="url grid">
+            <td class="index">0</td>
+            <td class="url">
+              https://youtu.be/-KMjLWQFDIE?si=aopR22ZDqbvpBix4
+            </td>
+            <td>MP3</td>
+            <td class="Bu-remove"></td>
+          </tr>
+          <tr class="url grid">
+            <td class="index">0</td>
+            <td class="url">
+              https://youtu.be/-KMjLWQFDIE?si=aopR22ZDqbvpBix4
+            </td>
+            <td>MP3</td>
+            <td class="Bu-remove"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <script>
+    //   setTimeout(function () {
+    //     location.reload();
+    //   }, 1000);
+    </script>
+  </body>
+</html>
