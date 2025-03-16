@@ -12,6 +12,11 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="shortcut icon"
+      href="assets/icon/favicon.ico"
+      type="image/x-icon"
+    />
 
     <link rel="stylesheet" href="assets/style/main.css" />
   </head>
@@ -43,11 +48,15 @@
       <br />
       <div class="grid">
         <div class="view-help">
-          <img
-            src="assets/images/flowers.webp"
+          <video
+            src="assets/images/tutorial.mp4"
             alt=""
+            auto
+            muted
+            playsinline
+            loop
             title="Uma linda Flor."
-          />
+            autoplay></video>
         </div>
         <div>
           <div>
@@ -70,7 +79,11 @@
 
     <section class="sec-tool">
       <h2 class="title">Ferramenta</h2>
-      <p class="text">Com apenas alguns cliques, você baixa suas músicas de forma rápida e fácil. Basta colar o link, escolher a extensão e clicar em "Adicionar", depois "Baixar"!</p>
+      <p class="text">
+        Com apenas alguns cliques, você baixa suas músicas de forma rápida e
+        fácil. Basta colar o link, escolher a extensão e clicar em "Adicionar",
+        depois "Baixar"!
+      </p>
       <form class="tool" id="form_url">
         <div class="div-input">
           <label for="input_url" class="icon"></label>
@@ -79,73 +92,56 @@
         <div>
           <select name="" class="metohds" id="method_selected">
             <optgroup label="Audio">
-              <option value="mp3">MP3</option>
+              <option value="MP3">MP3</option>
+              <option value="M4A">M4A</option>
+              <option value="AAC">AAC</option>
+              <option value="OGG">OGG</option>
+              <option value="OPUS">OPUS</option>
+              <option value="WAV">WAV</option>
+              <option value="FLAC">FLAC</option>
             </optgroup>
             <optgroup label="Video">
               <option value="mp4" selected>MP4</option>
+              <option value="MKV">MKV</option>
+              <option value="AVI">AVI</option>
+              <option value="MOV">MOV</option>
+              <option value="WebM">WebM</option>
+              <option value="FLV">FLV</option>
+              <option value="MPEG">MPEG</option>
+              <option value="TS">TS</option>
+              <option value="3GP">3GP</option>
+              <option value="WMV">WMV</option>
+              <option value="GIF">GIF</option>
             </optgroup>
           </select>
         </div>
         <button type="submit" class="add"></button>
-        <!-- <div class="add">
-        </div> -->
       </form>
     </section>
-
-    <section class="url-table" translate="no">
-      <div class="table-header">
-        <div class="div-background">
-          <div class="grid">
-            <span class="index">Index</span>
-            <span class="url">Url</span>
-            <span class="type">Tipo</span>
-            <span class="remove"></span>
+    <section class="section-list">
+      <div class="div-button-push-list">
+        <label for="button_push_list">Iniciar download:</label>
+        <button class="button" type="submit" id="button_push_list">
+          baixar
+        </button>
+      </div>
+      <div class="url-table" translate="no">
+        <div class="table-header">
+          <div class="div-background">
+            <div class="grid">
+              <span class="index">Index</span>
+              <span class="url">Url</span>
+              <span class="type">Tipo</span>
+              <span class="remove"></span>
+            </div>
           </div>
         </div>
+        <table class="list" aria-hidden="true">
+          <tbody class="body" id="list_urls"></tbody>
+        </table>
       </div>
-      <table class="list" aria-hidden="true">
-        <tbody class="body">
-          <tr class="url grid">
-            <td class="index">0</td>
-            <td class="url">
-              https://youtu.be/-KMjLWQFDIE?si=aopR22ZDqbvpBix4
-            </td>
-            <td>MP3</td>
-            <td class="Bu-remove"></td>
-          </tr>
-          <tr class="url grid">
-            <td class="index">0</td>
-            <td class="url">
-              https://youtu.be/-KMjLWQFDIE?si=aopR22ZDqbvpBix4
-            </td>
-            <td>MP3</td>
-            <td class="Bu-remove"></td>
-          </tr>
-          <tr class="url grid">
-            <td class="index">0</td>
-            <td class="url">
-              https://youtu.be/-KMjLWQFDIE?si=aopR22ZDqbvpBix4
-            </td>
-            <td>MP3</td>
-            <td class="Bu-remove"></td>
-          </tr>
-          <tr class="url grid">
-            <td class="index">0</td>
-            <td class="url">
-              https://youtu.be/-KMjLWQFDIE?si=aopR22ZDqbvpBix4
-            </td>
-            <td>MP3</td>
-            <td class="Bu-remove"></td>
-          </tr>
-        </tbody>
-      </table>
     </section>
-
+    <footer></footer>
     <script src="assets/scripts/main.js"></script>
-    <script>
-      //     setTimeout(function () {
-      //   location.reload();
-      // }, 1000);
-    </script>
   </body>
 </html>

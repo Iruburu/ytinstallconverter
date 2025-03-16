@@ -28,7 +28,7 @@ formUrl.addEventListener("submit", function (event) {
     event.preventDefault()
 
     // Função para pegar os valos preenchidos dentro do formulário
-    const getvalues = function (id, type = 'id') {
+    const getvalues = function (id, clear = true, type = 'id') {
 
         /* Essa função serve para buscar os valores preenchidos dentro do formulário, coms as seguintes ações:
             - Pegar id do formulário, para não haver erro na busca
@@ -48,7 +48,7 @@ formUrl.addEventListener("submit", function (event) {
         const value = input.value.trim()
 
         // Faz a limpeza do do elemento que foi buscado
-        input.value = ''
+        if (clear) input.value = ''
 
         // Retorna valor buscado
         return value
@@ -56,7 +56,7 @@ formUrl.addEventListener("submit", function (event) {
 
     // Variáveis oned sera guardado os valores buscados
     const inputUrl = getvalues("input_url") // --> URL
-    const methodSelected = getvalues("method_selected") // --> Tipo de arquivo
+    const methodSelected = getvalues("method_selected", false) // --> Tipo de arquivo
 
     console.log(methodSelected)
 
@@ -95,41 +95,56 @@ async function fetchData(url, data, method = 'POST') {
     }
 }
 
-buttonFetch.addEventListener('click', function(event) {
-    fetchData("http://localhost:1313/api/", listURLs)
-})
+// buttonFetch.addEventListener('click', function(event) {
+//     fetchData("http://localhost:1313/api/", listURLs)
+// })
 
 
 function drawListURLs(urls) {
     
-    const newURL = function (url) {
+    const createTableRow = function(index, url, ext) {
+        // Criar elementos
+        const tr = document.createElement("tr");
+        tr.classList.add("url", "grid");
+        
+        const tdIndex = document.createElement("td");
+        tdIndex.classList.add("index");
+        tdIndex.textContent = index;
+        
+        const tdUrl = document.createElement("td");
+        tdUrl.classList.add("url");
+        tdUrl.textContent = url;
+        
+        const tdExt = document.createElement("td");
+        tdExt.classList.add("ext");
+        tdExt.textContent = ext;
+        
+        const tdRemove = document.createElement("td");
+        tdRemove.classList.add("Bu-remove");
+        tdRemove.setAttribute('value', index)
 
-        let li = document.createElement('li')
-        let divNumber = document.createElement("span")
-        let divURL = document.createElement("span")
-        let divType = document.createElement("span")
-
-        divNumber.textContent = url.number
-        divURL.textContent = url.URL
-        divType.textContent = url.method
-
-        li.appendChild(divNumber)
-        li.appendChild(divURL)
-        li.appendChild(divType)
-
-        return li
+        tdRemove.addEventListener('click',function() {
+            tr.remove()
+        })
+        
+        // Adicionar elementos ao <tr>
+        tr.appendChild(tdIndex);
+        tr.appendChild(tdUrl);
+        tr.appendChild(tdExt);
+        tr.appendChild(tdRemove);
+        
+        return tr;
     }
 
     HTMLListURLs.innerHTML = ''
     
-    urls.forEach(function (url) {
+    const reverseUrl = urls.reverse()
+
+    reverseUrl.forEach(function (url) {
         
         HTMLListURLs.appendChild(
-            newURL(url)
-            
+            createTableRow(url.number, url.URL, url.method)
         )
-        console.log(url)
-        
     });
 
 }
