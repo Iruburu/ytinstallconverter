@@ -56,12 +56,12 @@ newApp.prototype.startForm = (event) => {
   // Adiciona a URl á lista
   app.listURLs.push(url);
 
-  app.drawListURLs(app.listURLs);
+  app.drawListURLs();
 };
 
 newApp.prototype.newUrl = class {
   constructor(url, method) {
-    this.index = app.listURLs.length + 1;
+    this.index = app.listURLs.length;
 
     this.URL = url;
 
@@ -101,10 +101,7 @@ newApp.prototype.createTableRow = (data) => {
   tdRemove.classList.add("Bu-remove");
   tdRemove.setAttribute("value", index);
 
-  tdRemove.addEventListener("click", function () {
-    app.deleteToUrl(index)
-    tr.remove();
-  });
+  tdRemove.addEventListener("click", () => app.deleteToUrl(index, tdRemove));
 
   // Adicionar elementos ao <tr>
   tr.appendChild(tdIndex);
@@ -115,22 +112,47 @@ newApp.prototype.createTableRow = (data) => {
   return tr;
 };
 
-newApp.prototype.drawListURLs = (urls) => {
+// Responsável por desenhar a lista de URLs dentro de uma tabela
+newApp.prototype.drawListURLs = (urls = app.listURLs) => {
+  // Limpa as listas antigas para desenhar a lista atualizada
   app.HTMLListURLs.innerHTML = "";
 
-  const listTables = []
+  // Lista onde serão guardadas as células formadas
+  const listTables = [];
 
-  urls.forEach((url) => 
-    listTables.push(app.createTableRow(url)));
+  // Itera com forEach na lista principal de URLs e chama a função que cria as células e as guarda na lista de células
+  urls.forEach((url) => listTables.push(app.createTableRow(url)));
 
+  // Itera sobre a lista de células e insere tudo na tabela HTML
   listTables.reverse().forEach((newTable) => {
     app.HTMLListURLs.appendChild(newTable);
   });
 };
 
-newApp.prototype.deleteToUrl = (index) => {
+// Responsável por fazer a limpeza de URLs que o usuário não quer instalar
+newApp.prototype.deleteToUrl = (index, tdRemove) => {
+  // Atalho para a lista principal de URLs
+  const listUrls = app.listURLs;
 
-}
+  // Verifica o número da URL na lista que o usuário quer deletar e, em seguida, a remove da lista e da tabela. Com as seguintes execuções:
+  //  - Usa um forEach para iterar sobre a lista principal de URLs
+  //  - Verifica em que posição está a URL desejada na lista principal
+  //  - Remove a URL desejada da lista
+  //  - Redesenha a lista atualizada.
+
+  listUrls.forEach((data, i) => {
+    if (index + 1 <= data.index) listUrls[i].index -= 1;
+  });
+
+  // Remove a URL desejada da lista
+  app.listURLs.splice(index, 1);
+
+  // Redesenha a lista atualizada.
+  app.drawListURLs();
+
+  // Remove os eventos de clique.
+  tdRemove.removeEventListener("click", () => null);
+};
 
 const app = new newApp();
 
