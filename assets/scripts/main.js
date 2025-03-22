@@ -60,14 +60,19 @@ newApp.prototype.startForm = (event) => {
 };
 
 newApp.prototype.newUrl = class {
+  // Construtor da classe que cria um novo objeto de URL com os parâmetros 'url' e 'method'
   constructor(url, method) {
+    // Atribui ao índice o comprimento atual da lista de URLs (baseado na quantidade de URLs na lista)
     this.index = app.listURLs.length;
 
+    // Atribui o valor da URL passada como argumento ao atributo 'URL'
     this.URL = url;
 
+    // Atribui o valor do método passado como argumento ao atributo 'method'
     this.method = method;
   }
 
+  // Método de edição, atualmente não implementado (retorna sempre 'false')
   edit() {
     return false;
   }
@@ -77,81 +82,123 @@ newApp.prototype.startApp = () => {
   app.formUrl.addEventListener("submit", app.startForm);
 };
 
+// Cria e retorna um objeto tipo HTMLContent com os dados da url adicionado
 newApp.prototype.createTableRow = (data) => {
-  // faz a descontrusção do objeto
+  // Desestrutura o objeto 'data' para acessar as propriedades: index, URL e method
   const { index, URL, method } = data;
 
-  // Criar elementos
+  // Cria um novo elemento de linha (<tr>) para a tabela
   const tr = document.createElement("tr");
-  tr.classList.add("url", "grid");
+  tr.classList.add("url", "grid"); // Adiciona as classes CSS 'url' e 'grid' à linha
 
+  // Cria a célula para o índice da URL
   const tdIndex = document.createElement("td");
-  tdIndex.classList.add("index");
-  tdIndex.textContent = index;
+  tdIndex.classList.add("index"); // Adiciona a classe CSS 'index' à célula
+  tdIndex.textContent = index; // Define o conteúdo da célula como o índice da URL
 
+  // Cria a célula para a URL
   const tdUrl = document.createElement("td");
-  tdUrl.classList.add("url");
-  tdUrl.textContent = URL;
+  tdUrl.classList.add("url"); // Adiciona a classe CSS 'url' à célula
+  tdUrl.textContent = URL; // Define o conteúdo da célula como a URL
 
+  // Cria a célula para o método associado à URL
   const tdExt = document.createElement("td");
-  tdExt.classList.add("ext");
-  tdExt.textContent = method;
+  tdExt.classList.add("ext"); // Adiciona a classe CSS 'ext' à célula
+  tdExt.textContent = method; // Define o conteúdo da célula como o método associado
 
+  // Cria a célula para o botão de remoção
   const tdRemove = document.createElement("td");
-  tdRemove.classList.add("Bu-remove");
-  tdRemove.setAttribute("value", index);
+  tdRemove.classList.add("Bu-remove"); // Adiciona a classe CSS 'Bu-remove' à célula
+  tdRemove.setAttribute("value", index); // Atribui o índice como um atributo 'value' da célula
 
+  // Adiciona o evento de clique na célula de remoção
   tdRemove.addEventListener("click", () => app.deleteToUrl(index, tdRemove));
 
-  // Adicionar elementos ao <tr>
+  // Adiciona todas as células criadas à linha (<tr>)
   tr.appendChild(tdIndex);
   tr.appendChild(tdUrl);
   tr.appendChild(tdExt);
   tr.appendChild(tdRemove);
 
+  // Retorna a linha (<tr>) formada com todas as células
   return tr;
 };
 
-// Responsável por desenhar a lista de URLs dentro de uma tabela
+// Responsável por desenhar a lista de URLs dentro de uma tabela HTML
 newApp.prototype.drawListURLs = (urls = app.listURLs) => {
-  // Limpa as listas antigas para desenhar a lista atualizada
+  // Limpa a tabela existente para desenhar a lista atualizada de URLs
   app.HTMLListURLs.innerHTML = "";
 
-  // Lista onde serão guardadas as células formadas
+  // Lista que armazenará as células da tabela que serão geradas
   const listTables = [];
 
-  // Itera com forEach na lista principal de URLs e chama a função que cria as células e as guarda na lista de células
+  // Itera sobre a lista de URLs e cria as células de tabela para cada URL
   urls.forEach((url) => listTables.push(app.createTableRow(url)));
 
-  // Itera sobre a lista de células e insere tudo na tabela HTML
+  // Inverte a ordem das células (se necessário) e adiciona elas à tabela HTML
   listTables.reverse().forEach((newTable) => {
     app.HTMLListURLs.appendChild(newTable);
   });
 };
 
-// Responsável por fazer a limpeza de URLs que o usuário não quer instalar
+// Responsável por excluir uma URL que o usuário não deseja manter
 newApp.prototype.deleteToUrl = (index, tdRemove) => {
   // Atalho para a lista principal de URLs
   const listUrls = app.listURLs;
 
-  // Verifica o número da URL na lista que o usuário quer deletar e, em seguida, a remove da lista e da tabela. Com as seguintes execuções:
-  //  - Usa um forEach para iterar sobre a lista principal de URLs
-  //  - Verifica em que posição está a URL desejada na lista principal
-  //  - Remove a URL desejada da lista
-  //  - Redesenha a lista atualizada.
-
+  // Ajusta o índice das URLs seguintes à URL deletada
+  // Itera sobre a lista de URLs e decrementa o índice das URLs após a excluída
   listUrls.forEach((data, i) => {
     if (index + 1 <= data.index) listUrls[i].index -= 1;
   });
 
-  // Remove a URL desejada da lista
+  // Remove a URL da lista principal de URLs usando o índice
   app.listURLs.splice(index, 1);
 
-  // Redesenha a lista atualizada.
+  // Redesenha a tabela com a lista de URLs atualizada
   app.drawListURLs();
 
-  // Remove os eventos de clique.
+  // Remove o evento de clique da célula removida
   tdRemove.removeEventListener("click", () => null);
+};
+
+// Define um método assíncrono verifyUrl no prototype de newApp
+newApp.prototype.verifyUrl = async (url) => {
+  // Mensagem de erro caso a URL não seja válida
+  const AlertError = "Url Inserida não é valida! Verifique e tente novamente.";
+
+  // Expressão regular para validar URLs do YouTube (suporta diferentes formatos)
+  const youtubeRegex = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:watch\?v=|playlist\?list=|embed\/|shorts\/|live\/)|youtu\.be\/)([a-zA-Z0-9_-]{11,})/;
+
+  // Se a URL não corresponder ao padrão do YouTube, lança um erro
+  if (!youtubeRegex.test(url)) throw new Error(AlertError);
+
+  // Função assíncrona para buscar informações do vídeo usando a API NoEmbed
+  const noembed = async function(_url) {
+    try {
+      // Faz a requisição para a API NoEmbed passando a URL do YouTube
+      const response = await fetch(`https://noembed.com/embed?url=${_url}`);
+
+      // Se a resposta não for bem-sucedida, lança um erro
+      if (!response.ok) throw new Error("Erro na requisição da API");
+
+      // Converte a resposta para JSON e retorna os dados
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      // Captura e lança um erro caso algo dê errado na requisição
+      throw new Error("Ooops:" + error);
+    }
+  };
+
+  // Aguarda a resposta da função noembed() e armazena os dados do vídeo
+  const result = await noembed(url);
+
+  // Se não houver resultado válido, lança um erro
+  if (!result || result.error) throw new Error(AlertError);
+
+  // Retorna os dados do vídeo obtidos da API NoEmbed
+  return result;
 };
 
 const app = new newApp();
