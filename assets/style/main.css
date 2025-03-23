@@ -157,7 +157,6 @@ a {
 }
 
 .tool {
-  position: relative;
   display: flex;
   justify-items: center;
   justify-content: center;
@@ -170,6 +169,22 @@ a {
   box-shadow: #6868681c 0px 4px 10px 0px;
   border-radius: 12px;
   overflow: hidden;
+}
+
+form.tool.error {
+  border: solid 2px #ff2a2a;
+}
+
+form.tool.error::after {
+  content: attr(data-text-error);
+  position: absolute;
+  display: inline-block;
+  font-size: 0.9rem;
+  color: #ff2a2a;
+  top: 104%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
 }
 
 .tool .div-input {
@@ -224,6 +239,11 @@ a {
 
   border: none;
 }
+
+.tool.error .add {
+  background-color: #ff2a2a;
+}
+
 .tool .add::after {
   content: "";
   position: absolute;

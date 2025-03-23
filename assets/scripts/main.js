@@ -12,7 +12,7 @@ class newApp {
   }
 }
 
-newApp.prototype.startForm = (event) => {
+newApp.prototype.startForm = async (event) => {
   // Evitar que a pagina seja atualizada quando o sumit for chamado
   event.preventDefault();
 
@@ -53,10 +53,34 @@ newApp.prototype.startForm = (event) => {
   // Objeto interativo da nova URL
   const url = new app.newUrl(inputUrl, methodSelected);
 
-  // Adiciona a URl á lista
-  app.listURLs.push(url);
+  //   console.log(url.URL)
 
-  app.drawListURLs();
+  try {
+    const response = await app.verifyUrl(url.URL);
+
+
+    url.search = response.data
+
+    // Adiciona a URl á lista
+    app.listURLs.push(url);
+
+    app.drawListURLs();
+  } catch (error) {}
+};
+
+newApp.prototype.errorHandling = async (er) => {
+  const tool = app.formUrl;
+  const error = er;
+
+  tool.classList.add("error");
+  tool.setAttribute("data-text-error", error.message);
+
+  tool.addEventListener("input", () => {
+    tool.classList.remove("error");
+    this.removeEventListener("input", () => {
+      null;
+    });
+  });
 };
 
 newApp.prototype.newUrl = class {
@@ -162,43 +186,51 @@ newApp.prototype.deleteToUrl = (index, tdRemove) => {
   tdRemove.removeEventListener("click", () => null);
 };
 
+// Função assíncrona para buscar informações do vídeo usando a API NoEmbed
+newApp.prototype.noembed = async (_url) => {
+  try {
+    // Faz a requisição para a API NoEmbed passando a URL do YouTube
+    const response = await fetch(`https://noembed.com/embed?url=${_url}`);
+
+    // Se a resposta não for bem-sucedida, lança um erro
+    if (!response.ok) throw new Error(response);
+
+    // Converte a resposta para JSON e retorna os dados
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    // Captura e lança um erro caso algo dê errado na requisição
+    throw new Error(await error);
+  }
+};
+
 // Define um método assíncrono verifyUrl no prototype de newApp
 newApp.prototype.verifyUrl = async (url) => {
   // Mensagem de erro caso a URL não seja válida
-  const AlertError = "Url Inserida não é valida! Verifique e tente novamente.";
-
-  // Expressão regular para validar URLs do YouTube (suporta diferentes formatos)
-  const youtubeRegex = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:watch\?v=|playlist\?list=|embed\/|shorts\/|live\/)|youtu\.be\/)([a-zA-Z0-9_-]{11,})/;
-
-  // Se a URL não corresponder ao padrão do YouTube, lança um erro
-  if (!youtubeRegex.test(url)) throw new Error(AlertError);
-
-  // Função assíncrona para buscar informações do vídeo usando a API NoEmbed
-  const noembed = async function(_url) {
-    try {
-      // Faz a requisição para a API NoEmbed passando a URL do YouTube
-      const response = await fetch(`https://noembed.com/embed?url=${_url}`);
-
-      // Se a resposta não for bem-sucedida, lança um erro
-      if (!response.ok) throw new Error("Erro na requisição da API");
-
-      // Converte a resposta para JSON e retorna os dados
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      // Captura e lança um erro caso algo dê errado na requisição
-      throw new Error("Ooops:" + error);
-    }
+  const status = (message, data) => {
+    const msgEr = {
+      message: message,
+      data: data,
+    };
+    return msgEr;
   };
 
+  // Expressão regular para validar URLs do YouTube (suporta diferentes formatos)
+  const youtubeRegex =
+    /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:watch\?v=|playlist\?list=|embed\/|shorts\/|live\/)|youtu\.be\/)([a-zA-Z0-9_-]{11,})/;
+
+  // Se a URL não corresponder ao padrão do YouTube, lança um erro
+  if (!youtubeRegex.test(url)) return status("Url inserida não é valida.");
+
   // Aguarda a resposta da função noembed() e armazena os dados do vídeo
-  const result = await noembed(url);
+  const response = await app.noembed(url);
 
   // Se não houver resultado válido, lança um erro
-  if (!result || result.error) throw new Error(AlertError);
+  if (!response || response.error)
+    return status("Vídeo não encontrado, Verifique a Url.");
 
   // Retorna os dados do vídeo obtidos da API NoEmbed
-  return result;
+  return status("Vídeo encotrado com sucesso", response);
 };
 
 const app = new newApp();
